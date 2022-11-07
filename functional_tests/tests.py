@@ -1,12 +1,13 @@
 from selenium import webdriver
 from selenium.webdriver.firefox.service import Service
 from selenium.webdriver.common.keys import Keys
+from django.test import LiveServerTestCase
 import time
 from webdriver_manager.firefox import GeckoDriverManager
 # import os
 import unittest
 
-class NewVisitorTest(unittest.TestCase):
+class NewVisitorTest(LiveServerTestCase):
     
     def setUp(self):
         self.browser = webdriver.Firefox(service=Service(GeckoDriverManager().install()))
@@ -17,7 +18,7 @@ class NewVisitorTest(unittest.TestCase):
     def test_can_start_a_list_and_retrieve_it_later(self):
         # Edit has aheard about a cool new online to-do app. 
         # She goes to check out its homepage
-        self.browser.get('http://localhost:8000')
+        self.browser.get(self.live_server_url)
 
         # She notices the page title and ehader mention to-do lists
         self.assertIn('To-Do', self.browser.title)
@@ -46,14 +47,14 @@ class NewVisitorTest(unittest.TestCase):
         inputbox = self.browser.find_element_by_id('id_new_item')
         inputbox.send_keys('Use peacock feathers to make a fly')
         inputbox.send_keys(Keys.ENTER)
-        time.sleep(1)
+        time.sleep(3)
 
         # the page updates, and now shoes both items on her list
         table = self.browser.find_element_by_id('id_list_table')
         rows = table.find_elements_by_tag_name('tr')
         self.assertIn('1: Buy peacock feathers', [row.text for row in rows])
         self.assertIn(
-            '2: Use peacocks feathers to make a fly',
+            '2: Use peacock feathers to make a fly',
             [row.text for row in rows]
         )
 
@@ -72,6 +73,3 @@ class NewVisitorTest(unittest.TestCase):
 
 # She notices the page title and header mention to-do lists
 # assert 'To-Do' in browser.title, 'Browser title was' + browser.title
-
-if __name__ == '__main__':
-    unittest.main()
