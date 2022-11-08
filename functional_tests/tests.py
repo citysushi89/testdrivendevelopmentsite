@@ -107,7 +107,7 @@ class NewVisitorTest(LiveServerTestCase):
 
         # Francis starts a new list by entering a new item. He is less interesting than Edit
         inputbox = self.browser.find_element_by_id('id_new_item')
-        inputbox.send_keys('Buy Milk')
+        inputbox.send_keys('Buy milk')
         inputbox.send_keys(Keys.ENTER)
         self.wait_for_row_in_list_table('1: Buy milk')
 
@@ -119,6 +119,6 @@ class NewVisitorTest(LiveServerTestCase):
         # Again, there is no trace of Edith's list
         page_text = self.browser.find_element_by_tag_name('body').text
         self.assertNotIn('Buy peacock feathers', page_text)
-        self.assertIn('Buy Milk', page_text)
+        self.assertIn('Buy milk', page_text)
 
         # Satisfied, they both go back to sleep
