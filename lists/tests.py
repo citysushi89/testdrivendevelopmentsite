@@ -28,7 +28,7 @@ class SmokeTest(TestCase):
     def test_redirects_after_POST(self):
         response = self.client.post('/', data={'item_text': 'A new list item'})
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(response['location'], '/')
+        self.assertEqual(response['location'], '/lists/the-only-list-in-the-world/')
         
 
 class ItemModelTest(TestCase):
@@ -57,11 +57,17 @@ class HomePageTest(TestCase):
         self.assertEqual(Item.objects.count(), 0)
 
 
-    def test_dispalys_all_list_items(self):
-        Item.objects.create(text='itemey 1')
+class ListViewTest(TestCase):
+
+    def test_uses_list_tempalte(self):
+        response = self.client.get('/lists/the-only-list-in-the-world/')
+        self.assertTemplateUsed(response, 'list.html')
+
+    def test_display_all_items(self):
+        Item.objects.create(text='Itemey 1')
         Item.objects.create(text='Itemey 2')
 
-        response = self.client.get('/')
+        response = self.client.get('/lists/the-only-list-in-the-world/')
 
-        self.assertIn('Itemey 1', response.content.decode())
-        self.assertIn('Itemey 2', response.content.decode())
+        self.assertContains(response, 'Itemey 1')
+        self.assertContains(response, 'Itemey 2')
