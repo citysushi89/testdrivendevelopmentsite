@@ -3,3 +3,6 @@ geckodriver.log
 virtualenv
 *.pyc
 /static
+.env
+ssh_key
+ssh_key.pub
