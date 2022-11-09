@@ -135,12 +135,3 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# CSRF_COOKIE_DOMAIN = None
-CSRF_TRUSTED_ORIGINS = ['http://staging-owenthedeveloper.click',
-                        'http://owenthedeveloper.click',
-                        'https://*.127.0.0.1',
-                        'http://localhost:8000/',
-                        'http://superlists-staging.owenthedeveloper.click',
-                        'http://superlists.staging.owenthedeveloper.click',
-                        'http://superlists.owenthedeveloper.click',
-                        ]
