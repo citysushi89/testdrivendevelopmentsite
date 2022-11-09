@@ -1,0 +1,15 @@
+[Unit]
+Description=Gunicorn server forsuperlists-staging.owenthedeveloper.click
+
+[Service]
+Restart=on-failure
+User=owen
+WorkingDirectory=/home/owen/sites4/superlists-staging.owenthedeveloper.click
+EnvironmentFile=/home/owen/sites4/superlists-staging.owenthedeveloper.click/.env
+
+ExecStart=/home/owen/sites4/superlists-staging.owenthedeveloper.click/virtualenv/bin/gunicorn \
+    --bind unix:/tmp/superlists-staging.owenthedeveloper.click.socket \
+    superlists.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
