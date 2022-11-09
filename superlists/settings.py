@@ -20,6 +20,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
+if 'DJANGO_DEBUG_FALSE' in os.environ:
+    DEBUG = False
+    SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
+    ALLOWED_HOSTS = [os.environ['SITENAME']]
+else:
+    DEBUG = False
+    SECRET_KEY = 'insecure-key-for-dev'
+    ALLOWED_HOSTS = []
+
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-c7g%4l0$x!i+389(xgkyh31=p1d%*uvv1gd_vfvpopeh1=v8dg'
 
@@ -131,5 +141,6 @@ CSRF_TRUSTED_ORIGINS = ['http://staging-owenthedeveloper.click',
                         'https://*.127.0.0.1',
                         'http://localhost:8000/',
                         'http://superlists-staging.owenthedeveloper.click',
+                        'http://superlists.staging.owenthedeveloper.click',
                         'http://superlists.owenthedeveloper.click',
                         ]
