@@ -14,7 +14,6 @@ class SmokeTest(TestCase):
         found = resolve('/')
         self.assertEqual(found.func, home_page)
 
-
     def test_home_page_returns_correct_html(self):
         response = self.client.get('/')
         self.assertTemplateUsed(response, 'home.html')
@@ -84,7 +83,7 @@ class ListViewTest(TestCase):
         self.assertTemplateUsed(response, 'list.html')
         expected_error = escape("You can't have an empty list item")
         self.assertContains(response, expected_error)
-        
+
 
 class NewListTest(TestCase):
 
